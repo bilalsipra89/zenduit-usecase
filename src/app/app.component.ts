@@ -17,29 +17,31 @@ import { CommonModule } from '@angular/common';
 export class AppComponent {
   date3: Date = new Date();
   formGroup!: FormGroup; 
-
+  selectedStatus: string = '';
+  selectedFrom: String = '';
   viewMode: string = 'map'; // To toggle between 'map' and 'list' view
   dateSelected: Date | null = null;
   filters: string[] = ['Filter 1', 'Filter 2', 'Filter 3'];
   selectedFilter: string = this.filters[0];
+  selectAllCheckBoxes  =  false;
   mockData = [
     { id: 1, title: 'Work Flow: Requires Location', from: 'denisgordiyenya@gmail.com', to: 'denisgordiyenya@gmail.com', due_date: '06 December', status: 'Uncomplete', lat: 43.61000263903802, lng: -79.65145363011293 },
-    { id: 2, title: 'Work Flow: Requires Location', from: 'denisgordiyenya@gmail.com', to: 'denisgordiyenya@gmail.com', due_date: '06 December', status: 'Uncomplete', lat: 43.595051955159626, lng: -79.66746610957343 },
-    { id: 3, title: 'Work Flow: Requires Location', from: 'denisgordiyenya@gmail.com', to: 'denisgordiyenya@gmail.com', due_date: '06 December', status: 'Low Risk', lat: 43.578662012192886, lng: -79.65296516207383 },
-    { id: 4, title: 'Work Flow: Requires Location', from: 'denisgordiyenya@gmail.com', to: 'denisgordiyenya@gmail.com', due_date: '06 December', status: 'Uncomplete', lat: 43.60321697972078, lng: -79.60386165613524 },
+    { id: 2, title: 'Work Flow: Requires Location', from: 'kronvold@live.com', to: 'denisgordiyenya@gmail.com', due_date: '06 December', status: 'Uncomplete', lat: 43.595051955159626, lng: -79.66746610957343 },
+    { id: 3, title: 'Work Flow: Requires Location', from: 'osrin@gmail.com', to: 'denisgordiyenya@gmail.com', due_date: '06 December', status: 'Low Risk', lat: 43.578662012192886, lng: -79.65296516207383 },
+    { id: 4, title: 'Work Flow: Requires Location', from: 'zendu@zendu.com', to: 'denisgordiyenya@gmail.com', due_date: '06 December', status: 'Uncomplete', lat: 43.60321697972078, lng: -79.60386165613524 },
     { id: 5, title: 'Work Flow: Requires Location', from: 'denisgordiyenya@gmail.com', to: 'denisgordiyenya@gmail.com', due_date: '06 December', status: 'Needs Review', lat:  43.61337051059693, lng: -79.69151211188377 },
    
   ];
 
   mockTableData = [
-    { id: 1, task: 'Work Flow: Requires Location',  from: 'zendu@zendu.com', to: 'tracy@zenduit.com', due_date: 'Oct 6, 02:38 AM', status: 'Low Risk', address:'2118 Thornridge Cir. Syracuse, Connecticut 35624',lat: 43.61000263903802, lng: -79.65145363011293, is_due: true },
-    { id: 2, task: 'Work Flow: Requires Location', from: 'zendu@zendu.com', to: 'tracy@zenduit.com', due_date: 'Oct 6, 01:40 PM', status: 'Low Risk', address: '1901 Thornridge Cir. Shiloh, Hawaii 81063', lat: 43.595051955159626, lng: -79.66746610957343 , is_due: false},
+    { id: 1, task: 'Work Flow: Requires Location',  from: 'denisgordiyenya@gmail.com', to: 'tracy@zenduit.com', due_date: 'Oct 6, 02:38 AM', status: 'Low Risk', address:'2118 Thornridge Cir. Syracuse, Connecticut 35624',lat: 43.61000263903802, lng: -79.65145363011293, is_due: true },
+    { id: 2, task: 'Work Flow: Requires Location', from: 'osrin@gmail.com', to: 'tracy@zenduit.com', due_date: 'Oct 6, 01:40 PM', status: 'Low Risk', address: '1901 Thornridge Cir. Shiloh, Hawaii 81063', lat: 43.595051955159626, lng: -79.66746610957343 , is_due: false},
     { id: 3, task: 'Work Flow: Requires Location', from: 'zendu@zendu.com', to: 'tracy@zenduit.com', due_date: 'Oct 7, 01:14 AM', status: 'Uncomplete', address: '4140 Parker Rd. Allentown, New Mexico 31134', lat: 43.578662012192886, lng: -79.65296516207383, is_due: true},
-    { id: 4, task: 'Work Flow: Requires Location', from: 'zendu@zendu.com', to: 'tracy@zenduit.com', due_date: 'Oct 7, 01:14 AM', status: 'Unassigned', address: '2118 Thornridge Cir. Syracuse, Connecticut 35624', lat: 43.60321697972078, lng: -79.60386165613524, is_due: false },
-    { id: 5, task: 'Work Flow: Requires Location', from: 'zendu@zendu.com', to: 'tracy@zenduit.com', due_date: 'Oct 7, 03:56 AM', status: 'Unassigned', address: '4517 Washington Ave. Manchester, Kentucky 39495', lat:  43.61337051059693, lng: -79.69151211188377, is_due: false },
-    { id: 6, task: 'Work Flow: Requires Location', from: 'zendu@zendu.com', to: 'tracy@zenduit.com', due_date: 'Oct 7, 04:20 PM', status: 'Uncomplete', address: '8502 Preston Rd. Inglewood, Maine 98380', lat:  43.61337051059693, lng: -79.69151211188377,is_due: true},
+    { id: 4, task: 'Work Flow: Requires Location', from: 'kronvold@live.com', to: 'tracy@zenduit.com', due_date: 'Oct 7, 01:14 AM', status: 'Unassigned', address: '2118 Thornridge Cir. Syracuse, Connecticut 35624', lat: 43.60321697972078, lng: -79.60386165613524, is_due: false },
+    { id: 5, task: 'Work Flow: Requires Location', from: 'osrin@gmail.com', to: 'tracy@zenduit.com', due_date: 'Oct 7, 03:56 AM', status: 'Unassigned', address: '4517 Washington Ave. Manchester, Kentucky 39495', lat:  43.61337051059693, lng: -79.69151211188377, is_due: false },
+    { id: 6, task: 'Work Flow: Requires Location', from: 'denisgordiyenya@gmail.com', to: 'tracy@zenduit.com', due_date: 'Oct 7, 04:20 PM', status: 'Uncomplete', address: '8502 Preston Rd. Inglewood, Maine 98380', lat:  43.61337051059693, lng: -79.69151211188377,is_due: true},
     { id: 7, task: 'Work Flow: Requires Location', from: 'zendu@zendu.com', to: 'tracy@zenduit.com', due_date: 'Oct 8, 04:12 AM', status: 'Uncomplete', address: '8502 Preston Rd. Inglewood, Maine 98380', lat:  43.61337051059693, lng: -79.69151211188377, is_due: false },
-    { id: 8, task: 'Work Flow: Requires Location', from: 'zendu@zendu.com', to: 'tracy@zenduit.com', due_date: 'Oct 8, 04:37 AM', status: 'Low Risk', address: '2118 Thornridge Cir. Syracuse, Connecticut 35624', lat:  43.61337051059693, lng: -79.69151211188377, is_due: false},
+    { id: 8, task: 'Work Flow: Requires Location', from: 'osrin@gmail.com', to: 'tracy@zenduit.com', due_date: 'Oct 8, 04:37 AM', status: 'Low Risk', address: '2118 Thornridge Cir. Syracuse, Connecticut 35624', lat:  43.61337051059693, lng: -79.69151211188377, is_due: false},
     { id: 9, task: 'Work Flow: Requires Location', from: 'zendu@zendu.com', to: 'tracy@zenduit.com', due_date: 'Oct 9, 06:12 PM', status: 'Low Risk', address: '2118 Thornridge Cir. Syracuse, Connecticut 35624', lat:  43.61337051059693, lng: -79.69151211188377, is_due: false },
    
   ];
@@ -108,6 +110,18 @@ export class AppComponent {
           this.initializeMap();
       },500);
     }
+  }
+
+  changeStatus(e: any) {
+this.selectedStatus = e.target.value;
+  }
+
+  changeFrom(e: any) {
+    this.selectedFrom = e.target.value;
+  }
+
+  selectAll() {
+    this.selectAllCheckBoxes = this.selectAllCheckBoxes === false ? true : false;
   }
 
 }
