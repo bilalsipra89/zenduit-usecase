@@ -1,0 +1,191 @@
+<nav class="navbar navbar-expand-lg">
+  <div class="container-fluid" style="justify-content: space-between  ;">
+    <a class="navbar-brand" href="#">ZenduForms</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#"><img src="assets/images/list.png" /> Forms <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#"><img src="assets/images/users.png" /> Customers</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="#"><img src="assets/images/audio.png" /> Submissions <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#"><img src="assets/images/history.png" /> History</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="#"><img src="assets/images/line-chart.png" /> Reports <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#"><img src="assets/images/line-chart.png" /> Workflow</a>
+      </li>
+      
+    </ul>
+    <ul class="navbar-nav mr-auto" style="float:right;">
+      <li class="nav-item">
+      <a class="nav-link" href="#search"><img src="assets/images/bell.png" style="width: 24px;height: 24px;"></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#search"><img src="assets/images/logout.png" style="width: 24px;height: 24px;"></a>
+    </li>
+  </ul>
+    
+  </div>
+</nav>
+<div class="container-fluid ps-4 pe-4" style="margin-top:44.8px;">
+  <h2 class="mb-5">Submissions</h2>
+
+  <div class="d-flex flex-row bd-highlight" style="gap:8px">
+    <div class="input-group mb-3 custom-input-group" style="width: 334px; height: 48px; ">
+      <div class="input-group-prepend">
+        <span class="input-group-text custom-input-group-text"><i class="fa fa-search"></i></span>
+      </div>
+      <input type="text" class="form-control" placeholder="Search">
+    </div>
+    <select class="form-control" style="width: 334px; height: 48px; padding: 13px 16px;">
+      <option value="">Select Form</option>
+      <option value="">Form 1</option>
+      <option value="">Form 2</option>
+      <option value="">Form 3</option>
+      <option value="">Form 4</option>
+    </select>
+    <select class="form-control" style="width: 334px; height: 48px; padding: 13px 16px;">
+      <option value="">Select Status</option>
+      <option value="low">Low Risk</option>
+      <option value="review">Need Review</option>
+      <option value="unassigned">Unassigned</option>
+      <option value="uncomplete">Uncomplete</option>
+    </select>
+    <div [formGroup]="formGroup">
+      <p-calendar 
+      [(ngModel)]="date3" 
+      dateFormat="dd.mm.yy" formControlName="date3"/>
+    </div>
+
+    <div class="btn-group" role="group" aria-label="Basic radio toggle button group" style="width:160px; height: 52px; margin-left: 20px ;">
+      <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked (change)="toggleView()">
+      <label class="btn btn-outline-primary" for="btnradio1" style="margin: auto;
+    padding: 12px 0px;">Map</label>
+    
+      <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" (change)="toggleView()">
+      <label class="btn btn-outline-primary" for="btnradio2"style="margin: auto;
+    padding: 12px 0px;">List</label>
+    </div>
+
+    <a href="#" style="margin-top:24px; font-size:16px; color:#2188D9" (click)="exportData()"><img src="assets/images/export.png"  style="width: 17px; height: 20px;"/>Export</a>
+    
+  </div>
+
+  @if (viewMode == 'map') {
+    <div class="d-flex flex-row bd-highlight" style="gap:20px">
+      <div class="d-flex flex-column bd-highlight"  style="width: 30%;">
+        <ul class="list-group mockdata-list">
+          @for (item of mockData; track item.id) {
+          <li class="list-group-item" style="font-size: 16px; font-weight: 700; line-height: 20.8px">
+            <p>{{ item.title }}</p>
+            @if (item.status == 'Uncomplete') {
+            <span class="badge badge-primary badge-pill" style="float:right; width: 128px;font-size: 14px; font-weight: 500; background-color: #FF3D001A;  color: #FF3D00;">
+              <i class="fa fa-circle" style="width: 12px; font-size: 12px;"></i> {{ item.status }}
+            </span>
+            } @else if(item.status == 'Low Risk') {
+             <span class="badge badge-primary badge-pill" style="float:right; width: 128px;font-size: 14px; font-weight: 500; background-color: #D7E5DA;  color: #53D86A;">
+              <i class="fa fa-circle" style="width: 12px; font-size: 12px;"></i> {{ item.status }}
+            </span>
+            } @else {
+              <span class="badge badge-primary badge-pill" style="float:right; width: 128px;font-size: 14px; font-weight: 500; background-color: #ECECED;  color: #B8B9BC;">
+                <i class="fa fa-circle" style="width: 12px; font-size: 12px;"></i> {{ item.status }}
+              </span>
+            }
+            <p class="mb-1" style="color: #B8B9BC; font-size: 16px; font-weight:500; line-height: 20.8px;">
+              <span>From: </span>
+              <span style="color:#060C1B">{{ item.from }}</span>
+            </p>
+            <p class="mb-1" style="color: #B8B9BC; font-size: 16px; font-weight:500; line-height: 20.8px;">
+              <span>To: </span>
+              <span style="color:#060C1B">{{ item.to }}</span>
+            </p>
+            <p class="mb-1" style="color: #B8B9BC; font-size: 16px; font-weight:500; line-height: 20.8px;">
+              <span>Due Date: </span>
+              <span style="color:#FF3D00">{{ item.due_date }}</span>
+            </p>
+          </li>
+          }
+        </ul>
+      </div>
+      <div  style="width: 70%;">
+        <div class="map" id="map" class="match-parent"></div>
+      </div>
+    </div>
+  } @else if (viewMode == 'list') {
+    <div class="d-flex flex-row bd-highlight">
+      <table class="table table-bordered m-3">
+        <thead>
+          <tr>
+            <th>
+              <input type="checkbox" name="selectall" id="selectall"  />
+            </th>
+            <th>Task</th>
+            <th>Status</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Customer Address</th>
+            <th>Due Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (item of mockTableData; track item.id) {
+          <tr>
+            <td><input type="checkbox" name="selecton_{{item.id}}" id="selecton_{{item.id}}"  /></td>
+            <td>{{ item.task }}</td>
+            <td>
+              <span  [ngClass]="{'low-risk': item.status === 'Low Risk', 'uncomplete' : item.status === 'Uncomplete' , 'unassigned' : item.status === 'Unassigned'  }">
+              <i class="fa fa-circle" style="width: 12px; font-size: 12px;"></i> {{ item.status }}
+                </span>
+            </td>
+            <td>{{ item.from }}</td>
+            <td>{{ item.to }}</td>
+            <td>{{ item.address }}</td>
+            <td>{{ item.due_date }}</td>
+          </tr>
+          }
+        </tbody>
+
+      </table>
+    </div>
+    <div class="d-flex  pull-right">
+      <nav aria-label="Page navigation example" style="background: none;">
+        <ul class="pagination">
+          <li class="page-item disabled">
+            <a class="page-link" href="#" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+              <span class="sr-only">Previous</span>
+            </a>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item"><a class="page-link" href="#">4</a></li>
+          <li class="page-item"><a class="page-link" href="#">5</a></li>
+          <li class="page-item"><a class="page-link" href="#">6</a></li>
+          <li class="page-item"><a class="page-link" href="#">7</a></li>
+          <li class="page-item"><a class="page-link" href="#">8</a></li>
+          <li class="page-item"><a class="page-link" href="#">9</a></li>
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+              <span class="sr-only">Next</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+  }
+  
+</div>
+
+<router-outlet />
